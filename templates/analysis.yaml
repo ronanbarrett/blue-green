@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: api-test
+spec:
+  metrics:
+  - name: test
+    provider:
+      job:
+        spec:
+          backoffLimit: 1
+          template:
+            spec:
+              containers:
+              - name: smoke-test
+                image: alpine:latest
+                command: ["sh", "-c", "exit",  "0"] #this would be an api-test in the real world
+              restartPolicy: Never
